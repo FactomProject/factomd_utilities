@@ -1,0 +1,55 @@
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: anchor-monitor
+spec:
+  serviceName: "anchor-monitor"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        role: anchor-monitor
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: mongo
+        image: mongo
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mongo-creds
+              key: username
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mongo-creds
+              key: password
+        ports:
+          - containerPort: 27017
+        volumeMounts:
+          - name: mongo-persistent-storage
+            mountPath: /data/db
+          - name: mongo-config
+            mountPath: /docker-entrypoint-initdb.d/users.js 
+            subPath: users.js
+      - name: frontend
+        image: gcr.io/factomd-dev/anchor-monitor-front
+        ports:
+          - containerPort: 3000
+      - name: server
+        image: gcr.io/factomd-dev/anchor-monitor-server
+      volumes:
+      - name: mongo-config
+        configMap:
+          name: mongo-config
+  volumeClaimTemplates:
+  - metadata:
+      name: mongo-persistent-storage
+      annotations:
+        volume.beta.kubernetes.io/storage-class: "fast"
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 100Gi

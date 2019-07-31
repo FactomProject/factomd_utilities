@@ -1,0 +1,17 @@
+    {
+      "kind": "Service",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "oracle-backend1"
+      },
+      "spec": {
+        "ports": [{
+          "port": 5001,
+          "targetPort": 5001
+        }],
+        "selector": {
+          "app": "oracle"
+        },
+        "type": "LoadBalancer"
+      }
+    }

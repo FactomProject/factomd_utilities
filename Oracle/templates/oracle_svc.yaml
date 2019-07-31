@@ -1,0 +1,24 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: oracle-front
+  namespace: oracle
+  labels:
+    app.kubernetes.io/name: oracle-front
+    app.kubernetes.io/part-of: oralce-front
+spec:
+  externalTrafficPolicy: Local
+  type: LoadBalancer
+  selector:
+    app: oracle
+  ports:
+    - name: frontend
+      port: 3000
+      targetPort: frontend
+    - name: backend1
+      port: 5001
+      targetPort: backend1
+    - name: backend2
+      port: 5002
+      targetPort: backend2
+

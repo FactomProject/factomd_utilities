@@ -1,0 +1,20 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: oracle-back
+  namespace: oracle
+  labels:
+    app.kubernetes.io/name: oracle-back
+    app.kubernetes.io/part-of: oralce-back
+spec:
+  externalTrafficPolicy: Local
+  type: LoadBalancer
+  selector:
+    app: oracle
+  ports:
+    - name: backend1
+      port: 5001
+      targetPort: backend1
+    - name: backend2
+      port: 5002
+      targetPort: backend2

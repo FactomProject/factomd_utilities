@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mongo-config
+  namespace: anchor-monitor
+data:
+  users.js: |-
+    db.auth('factomize','MKO)0okmZAQ!1qaz');
+    db = db.getSiblingDB('anchor_db');
+    db.createUser(
+      {
+        user: "anchor",
+        pwd: "MKO)0okmAQ!1qaz",
+        roles: [ { role: "readWrite", db: "anchor_db" } ]
+      }
+    );

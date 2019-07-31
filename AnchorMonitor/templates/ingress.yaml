@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+  generation: 1
+  name: anchor-monitor-ingress
+spec:
+  rules:
+  - host: anchor.factomd.com
+    http:
+      paths:
+      - backend:
+          serviceName: proxy
+          servicePort: 8080
+        path: /*
+

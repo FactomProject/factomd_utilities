@@ -1,0 +1,44 @@
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: nginx
+#   labels:
+#     app: nginx
+# spec:
+#   ports:
+#   - port: 80
+#     name: web
+#   clusterIP: None
+#   selector:
+#     app: nginx
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oracle
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oracle
+  template:
+    metadata:
+      labels:
+        app: oracle
+    spec:
+      containers:
+      - name: fer-api
+        image: gcr.io/factomd-dev/fer-api
+        ports:
+        - containerPort: 9999
+          name: fer-api
+      - name: relate
+        image: gcr.io/factomd-dev/relate2
+        ports:
+        - containerPort: 3000
+          name: frontend
+        - containerPort: 5001
+          name: backend1
+        - containerPort: 5002
+          name: backend2
+

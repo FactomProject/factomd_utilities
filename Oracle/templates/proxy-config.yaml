@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: oracle-nginx
+data:
+  nginx.conf: |
+
+    events {
+         worker_connections  1024;  ## Default: 1024
+    }
+    http {
+
+
+        server {
+
+
+            listen 80;
+            listen [::]:80;
+
+            ssl off;
+
+            server_name oracle-nginx.oracle;
+
+            # SSL config
+            # include /etc/nginx/conf.d/ssl.conf;
+
+            # Proxy and misc headers
+
+            if ($http_x_forwarded_proto = "http") {
+                return 301 https://$host$request_uri;
+            }
+
+
+            if ($request_uri = '/healthz') {
+                return 200 "healthy\n";
+            }
+
+
+            location ~ ^/socket.io/ {
+                 if ($http_referer ~* ^(.*)/(BTCGraph|FCTGraph)) {
+                    proxy_pass http://oracle-back:5002;
+                }
+                proxy_pass http://oracle-back:5001;
+            }
+
+
+            location ~ ^/sockjs-node/* {
+                 if ($http_referer ~* ^(.*)/(BTCGraph|FCTGraph)) {
+                    proxy_pass http://oracle-back:5002;
+                }
+                proxy_pass http://oracle-back:5001;
+
+            }
+
+
+            location ~ ^/(.*)$ {
+                proxy_pass http://oracle-front:3000;
+            }
+
+
+            error_page 400 401 402 403 404 405 406 407 408 409 410 411 412 413 414 415 416 417 418 420 422 423 424 426 428 429 431 444 449 450 451 500 501 502 503 504 505 506 507 508 509 510 511 /error.html;
+            location  /error.html {
+                root /data;
+             }
+        }
+    }
