@@ -1,0 +1,120 @@
+/* resets */
+body {
+  background-color: #ffffff;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label,
+body {
+  color: #939598;
+}
+h1 {
+  font-size: 32px;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+h1 small {
+  color: #939598;
+  font-size: 16px;
+  text-transform: none;
+}
+table {
+  margin-top: 5vh;
+}
+
+.App-logo {
+  height: 80px;
+}
+.disline {
+  text-align: center;
+}
+
+.App-header {
+  margin: 2em 5em;
+}
+
+.nav {
+  margin-left: 2em;
+  margin-right: 5em;
+  color: white;
+  text-align: center;
+  background-color: #28495f;
+  display: inline-flex;
+  border-radius: 10px;
+}
+.switch.tiny {
+  margin: 0;
+}
+.switch-paddle {
+  background: red;
+  float: right;
+}
+
+input.switch-input[type="checkbox"]:checked + label {
+  background: #06cf06;
+}
+.btn-group.dropright.downdeep {
+  float: right;
+  top: -10px;
+}
+
+.button {
+  font-size: 0.8rem;
+  margin-bottom: 0px;
+  margin-top: 5px;
+  float: right;
+  padding: 0.5rem 0.5rem;
+}
+
+.dropdown-menu {
+  min-width: 300px;
+  width: 250% !important;
+}
+.dropdown-menu.apikeys {
+  min-width: 300px;
+  width: 400% !important;
+}
+.config.dropdown-menu {
+  width: 550% !important;
+}
+.dropdown-item.flex {
+  display: inline-flex !important;
+}
+
+@keyframes highlight {
+  0% {
+    background: red
+  }
+  100% {
+    background: none;
+  }
+}
+
+#example_wrapper {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.row {
+  margin-right: 0%;
+}
+
+#style-7::-webkit-scrollbar {
+  height: 10px;
+  border-radius: 10px;
+  background-color: #F5F5F5;
+}
+#style-7::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: rgb(40, 73, 95);
+}

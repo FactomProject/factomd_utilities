@@ -1,6 +1,5 @@
-FROM node
-COPY factom-node-monitoring-tool app
-COPY entrypoint.sh /app/
-WORkDIR app
-RUN npm install
+FROM node:8.12.0
+COPY * app/
+WORKDIR app/
 ENTRYPOINT ["/app/entrypoint.sh"]
+
